@@ -12,6 +12,10 @@ node {
     nodeModulesDir = file("${project.projectDir}")
 }
 
+task installDevkit(type: NpmTask) {
+  args = ['install', '@angular-devkit', '--save-dev']
+}
+
 task build(type: NpmTask) {
   args = ['run', 'build']
 }

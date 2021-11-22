@@ -38,7 +38,7 @@ task deleteStaticFolder(type: Delete) {
     }
 }
 
-//processResources.dependsOn('frontend:build')
+processResources.dependsOn('frontend:build')
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
