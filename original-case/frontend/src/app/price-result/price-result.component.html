@@ -1,0 +1,59 @@
+<div class="content" *ngIf="fareDetails">
+<h2 class="top">Results</h2>
+  <div class="card-container">
+    <span class="card card-small">
+     <strong>Price:</strong>
+    </span>
+    <span class="card card-small">
+      {{fareDetails.fare.amount | currency:fareDetails.fare.currency:'symbol':'1.2-2'}}
+     </span>
+</div>
+<div class="card-container">
+  <span class="card card-small">
+    <strong>Origin:</strong>
+   </span>
+   <span class="card card-small">
+     {{fareDetails.origin.name}}
+    </span>
+</div>
+<div class="card-container">
+  <span class="card card-small">
+    <strong>Code:</strong>
+   </span>
+   <span class="card card-small">
+     {{fareDetails.origin.code}}
+    </span>
+</div>
+<div class="card-container">
+    <span class="card card-small">
+      <strong>Description:</strong>
+     </span>
+     <span class="card card-small">
+       {{fareDetails.origin.description}}
+      </span>
+  </div>
+<div class="card-container">
+  <span class="card card-small">
+    <strong>Destination:</strong>
+   </span>
+   <span class="card card-small">
+     {{fareDetails.destination.name}}
+    </span>
+</div>
+<div class="card-container">
+  <span class="card card-small">
+    <strong>Code:</strong>
+   </span>
+   <span class="card card-small">
+     {{fareDetails.destination.code}}
+    </span>
+</div>
+<div class="card-container">
+  <span class="card card-small">
+    <strong>Description:</strong>
+   </span>
+   <span class="card card-small">
+     {{fareDetails.destination.description}}
+    </span>
+</div>
+</div>

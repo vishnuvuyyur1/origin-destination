@@ -1,0 +1,39 @@
+<form  [formGroup]="priceForm" class="form">
+    <div class="card">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Origin" aria-label="Origin" [matAutocomplete]="origin"
+          formControlName="origin">
+        <mat-autocomplete #origin="matAutocomplete">
+          <mat-option *ngFor="let airport of filteredAirports | async" [value]="airport.code">
+            <mat-icon aria-hidden="false">flight_takeoff</mat-icon>
+            <span>{{ airport.code }}</span> |
+            <small>Name: {{airport.name}}</small>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div class="card">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Destination" aria-label="Destination" [matAutocomplete]="destination"
+          formControlName="destination">
+        <mat-autocomplete #destination="matAutocomplete">
+          <mat-option *ngFor="let airport of filteredDestinations | async" [value]="airport.code">
+            <mat-icon aria-hidden="false">flight_land</mat-icon>
+            <span>{{ airport.code }}</span> |
+            <small>Name: {{airport.name}}</small>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+  </form>
+  <button mat-raised-button (click)="getPrice()" color="accent">
+      Get Price</button>
+      <span class="content" *ngIf="loading">
+        <mat-spinner [diameter]="50"></mat-spinner>
+    </span>
+
+    <div *ngIf="serviceError" class="card-container">
+      <span class="error">
+        <strong>Backend system failed retrieving data</strong>
+       </span>
+    </div>
