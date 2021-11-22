@@ -1,4 +1,4 @@
-# Frank's garage
+# Origin Destination
 - Architecture <br>
 ![garage](https://user-images.githubusercontent.com/22782834/90405684-657a6580-e0a4-11ea-94ca-1b92429965ba.png)
 
@@ -6,32 +6,30 @@
 ## Technology stack
   - Java 11
   - Spring Boot 2+
-  - Basic Authentication
-  - Maven Build
+  - Angular 13
+  - Gradle Build
   - Environment: Embedded Tomcat
-  - Deploymnet: Docker container
   
 ## Instructions to run
-With Docker: <br>
-   - Need to have git installed. Clone the project: git clone https://github.com/vishnuvuyyur1/garage.git
-   - Need to have docker installed. <br>
-   - Command prompt: From insider the project folder mock-api
-   - Step1: build the project : docker build -t mock-api-image .
-   - Command prompt: From insider the project folder garage-api
-   - Step2: build the project : docker build -t garage-api-image .
-   - Step3: to run: docker-compose up (pulls image and starts the mongoDB, starts mock-api, garage-api)
-   - Base URL: http://localhost:8080/garage/api/v1
+Two seperate terminals needed: <br>
+   - Need to have git installed. Clone the project: git clone https://github.com/vishnuvuyyur1/origin-destination.git <br>
+   Terminal-1:
+   - From the repository root folder origin-destination: then 
+   -  cd original-case
+   -  ./gradle npmInstall or gradle npmInstall(windows)
+   -  (optional)./gradlew build or gradle build 
+   -  /.gradlew bootrun or gradle bootrun (windows)
+   -  http://localhost:9000 <br>
+   Terminal-2:
+   - From the repository root folder origin-destination: then 
+   -  cd metrics
+   -  (optional)./gradlew build or gradle build
+   -  /.gradlew bootrun or gradle bootrun (windows) <br>
+   Terminal-3:
+   - Run mock service
    
-## Approach:
-- A microservice with its own database with a well defined set of functinatlity. And runs in a containerized environment.
-- A reactive approach down to the databse to enable the API respond in a non-blocking and event based to improve performance.
-- Phase 1 used a mock-api that returns a json from  a json file. The content of json file is : https://api.jsonbin.io/b/5ebe673947a2266b1478d892
-- To list all the available cars : Used spring web flux to reactively interact with 3rd party apis (mock-api), using this library enables our client to perform HTTP requests and providing asynchronous behaviour i.e the rest call need not wait till response comes back. Instead when there is a response, a notification will be provided.
-- Get Response from mock api data which has cars that are grouped under warehouses and aggregate the results of all warehouses by parallel processing to one list of custom Car POJO.
-- By utilizing the parallel processing of data using streams the performance is optimized.
-- phase 2 Track the traffic: To track the traffic on 3rd party api, used a counter for each request than can result in either 200, 4XX, 5XX. update the counter based on the result from the 3rd party api(mock-api) in DB.
-- phase 3 Allow Frank to add, update, delete car to the store. A collection with Car is used for this purpose.  Used mongo NoSQL Db.
-- Reactive Mongo DB NoSQL database enabling a reactive interaction with DB, a nosql Db is document orientend enables storing of data together in documents.
+## Output:
+
 
  ## End points:
    Mock API :  http://localhost:8080/mock/garages returns a mock json referred from  https://api.jsonbin.io/b/5ebe673947a2266b1478d892 <br>
