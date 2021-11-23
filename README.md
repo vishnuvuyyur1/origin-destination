@@ -7,22 +7,23 @@
   - Environment: Embedded Tomcat
   
 ## Instructions to run
-Two seperate terminals needed: <br>
+3 seperate terminals needed: <br>
    - Need to have git installed. Clone the project: git clone https://github.com/vishnuvuyyur1/origin-destination.git <br>
-   Terminal-1:
-   - From the repository root folder origin-destination: then 
+   ### Terminal-1:
+   - From the repository root folder origin-destination perform the operations
    -  cd original-case
-   -  ./gradle npmInstall or gradle npmInstall(windows)
-   -  (optional)./gradlew build or gradle build 
-   -  /.gradlew bootrun or gradle bootrun (windows)
+   -  ./gradlew clean or gradle clean(windows)
+   -  ./gradlew npmInstall or gradle npmInstall(windows)
+   -  ./gradlew build or gradle build 
+   -  ./gradlew bootRun or gradle bootrun (windows)
    -  http://localhost:9000 <br>
-   Terminal-2:
-   - From the repository root folder origin-destination: then 
+   ### Terminal-2:
+   - From the repository root folder origin-destination 
    -  cd metrics
-   -  (optional)./gradlew build or gradle build
-   -  /.gradlew bootrun or gradle bootrun (windows) <br>
+   -  (optional)./gradlew build or gradle build (windows)
+   -  ./gradlew bootRun or gradle bootrun (windows) <br>
    -  http://localhost:8000/wallboard <br>
-   Terminal-3:
+   ### Terminal-3:
    - Run mock service
    
 ## Output: <br>
@@ -33,11 +34,10 @@ Task2: Metrics (click on metrics btn and navigate to http traces)<br>
 
  ## End points:
   
-    open-case API Base URL: http://localhost:9000/origin-destination
+    open-case API Base URL: http://localhost:9000/origin-destination 
     open-case API Metrics Dashboard URL: http://localhost:8000/wallboard
-    
     click and explore the dashboard
-   
+ 
   open-case API Operations:
   
   |No| Operation | Endpoint | Method |Phase|
@@ -45,8 +45,9 @@ Task2: Metrics (click on metrics btn and navigate to http traces)<br>
 |1| get airports   | /airports | GET |Task1 |
 |2| get faredetails | /fare | GET |Task 1|
 <br>
-Task 2<br>
- http://localhost:8000/wallboard<br>
+Task 2: Metrics dashboard<br>
+Spring Boot Admin server Implemrentation <br>
+http://localhost:8000/wallboard <br>
 
 ## 1. get airports: Interacts with Mocki ApI
 - URI: /airports
