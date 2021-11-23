@@ -26,6 +26,7 @@ build {
     version = '0.2.0'
 }
 
+//Gather metrics for this API
 ext {
 	set('springBootAdminVersion', "2.4.3")
 }
@@ -44,11 +45,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'de.codecentric:spring-boot-admin-starter-client'
-    testAnnotationProcessor 'org.projectlombok:lombok'
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
-    testImplementation 'com.squareup.okhttp3:mockwebserver:3.2.0'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.8.1'
+    testImplementation 'com.squareup.okhttp3:okhttp:4.8.1'
 	
+	testAnnotationProcessor 'org.projectlombok:lombok'
 	compileOnly 'org.projectlombok:lombok'  
     annotationProcessor 'org.projectlombok:lombok'
     testCompileOnly('org.projectlombok:lombok')

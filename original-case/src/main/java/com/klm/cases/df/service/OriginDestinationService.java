@@ -11,25 +11,27 @@ import com.klm.cases.df.model.Fare;
 import com.klm.cases.df.model.FareDetail;
 import com.klm.cases.df.model.Location;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 @Service
-public class OriginDestinationService {
+@Slf4j
+public class OriginDestinationService implements IOriginDestinationService{
 private final WebClient webClient;
-	
-@Value("${mock.api.user}")
 private String apiUser;
-
-@Value("${mock.api.password}")
 private String apiPassword;
 
 private static final String AIRPORTS_PATH = "/airports";
 private static final String FARES_PATH = "/fares";
 
-	public OriginDestinationService(@Value("${mock.api.baseurl}") String apiBaseURL, WebClient.Builder webClientBuilder) {
-		this.webClient = webClientBuilder.baseUrl(apiBaseURL).build();
+	public OriginDestinationService(@Value("${mock.api.baseurl}") String apiBaseURL, @Value("${mock.api.user}") String username,  
+			@Value("${mock.api.password}") String password) {
+		this.webClient = WebClient.builder().baseUrl(apiBaseURL).build();
+		this.apiUser = username;
+		this.apiPassword = password;
 	}
 	
+	@Override
 	public Mono<List<Location>> getAirports() {
 		return this.webClient.get()
                 .uri(AIRPORTS_PATH)
@@ -38,24 +40,8 @@ private static final String FARES_PATH = "/fares";
                 .bodyToMono(AirportsEmbedded.class).map(resp -> resp.get_embedded().getLocations());
 	}
 	
-	public Mono<Fare> getFare(String originCode, String destinationCode) {
-		return this.webClient.get()
-                .uri(FARES_PATH + "/" + originCode + "/" + destinationCode)
-                .headers(headers -> headers.setBasicAuth(apiUser, apiPassword))
-                .retrieve()
-                .bodyToMono(Fare.class);
-	}
-	
-	
-	public Mono<Location> getAirport(String airportCode) {
-		return this.webClient.get()
-                .uri(AIRPORTS_PATH+ "/" + airportCode)
-                .headers(headers -> headers.setBasicAuth(apiUser, apiPassword))
-                .retrieve()
-                .bodyToMono(Location.class);
-	}
-	
 	//Parallel service calls 
+	@Override
 	public Mono<FareDetail> getFareDetail(String originCode, String destinationCode) {
 		return Mono.zip(getFare(originCode,destinationCode), getAirport(originCode), getAirport(destinationCode)).flatMap(tuple ->{
 			FareDetail fareDetail = new FareDetail();
@@ -65,5 +51,26 @@ private static final String FARES_PATH = "/fares";
 			 return Mono.just(fareDetail);
 		});
 	}
+	
+	public Mono<Fare> getFare(String originCode, String destinationCode) {
+		log.info("check for parallel call");
+		return this.webClient.get()
+                .uri(FARES_PATH + "/" + originCode + "/" + destinationCode)
+                .headers(headers -> headers.setBasicAuth(apiUser, apiPassword))
+                .retrieve()
+                .bodyToMono(Fare.class);
+	}
+	
+	
+	public Mono<Location> getAirport(String airportCode) {
+		log.info("check for parallel call");
+		return this.webClient.get()
+                .uri(AIRPORTS_PATH+ "/" + airportCode)
+                .headers(headers -> headers.setBasicAuth(apiUser, apiPassword))
+                .retrieve()
+                .bodyToMono(Location.class);
+	}
+	
+
 
 }
