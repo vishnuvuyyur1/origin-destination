@@ -10,8 +10,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import { PriceSearchComponent } from './price-search/price-search.component';
-import { PriceResultComponent } from './price-result/price-result.component';
+import { PriceSearchComponent } from './components/price-search/price-search.component';
+import { PriceResultComponent } from './components/price-result/price-result.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
