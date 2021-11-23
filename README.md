@@ -27,10 +27,10 @@
    - cd simple-travel-api-mock
    - ./gradlew bootRun or gradle bootrun (windows)
    
-## Output: <br>
+## Output: http://localhost:9000 <br>
  Task1: Fare details (Parallel calls)
 ![airports](https://user-images.githubusercontent.com/22782834/142881906-cd48d502-4f47-4444-90bc-394894ffa7d5.JPG) <br>
-Task2: Metrics (click on metrics btn and navigate to http traces)<br>
+Task2  http://localhost:8000/wallboard : Metrics (click on metrics btn and navigate to http traces)<br>
 ![metrics](https://user-images.githubusercontent.com/22782834/142883128-ab2faa92-c290-4bab-bcb4-a82ac20e07d9.png)
 
  ## End points:
