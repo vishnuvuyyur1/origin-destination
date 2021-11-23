@@ -24,7 +24,8 @@
    -  ./gradlew bootRun or gradle bootrun (windows) <br>
    -  http://localhost:8000/wallboard <br>
    ### Terminal-3:
-   - Run mock service
+   - cd simple-travel-api-mock
+   - ./gradlew bootRun or gradle bootrun (windows)
    
 ## Output: <br>
  Task1: Fare details (Parallel calls)
