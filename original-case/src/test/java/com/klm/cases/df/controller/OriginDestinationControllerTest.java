@@ -47,6 +47,4 @@ public class OriginDestinationControllerTest {
 		Mockito.verify(originDestinationService, Mockito.times(1)).getAirports();
 	}
 
-	
-	
 }

@@ -1,4 +1,4 @@
-package com.klm.cases.df.service;
+package com.klm.cases.df.repositoy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.klm.cases.df.repository.MockServiceRepository;
 import com.klm.cases.df.test_data.OriginDestinationTestData;
 
 import okhttp3.mockwebserver.MockResponse;
@@ -17,9 +18,9 @@ import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import reactor.test.StepVerifier;
 
-public class OriginDestinationServiceTest {
+public class MockServiceRepositoryTest {
 	private OriginDestinationTestData originDestinationTestData;
-	private OriginDestinationService originDestinationService;
+	private MockServiceRepository mockServiceRepository;
 	private MockWebServer mockWebServer;
 	private ObjectMapper mapper = new ObjectMapper();
 
@@ -28,7 +29,7 @@ public class OriginDestinationServiceTest {
 		originDestinationTestData = new OriginDestinationTestData();
 		 this.mockWebServer = new MockWebServer();
 		 this.mockWebServer.start();
-		 originDestinationService = new OriginDestinationService(mockWebServer.url("/").toString(),"user","pwd");
+		 mockServiceRepository = new MockServiceRepository(mockWebServer.url("/").toString(),"user","pwd");
 	}
 	
 	@AfterEach
@@ -44,7 +45,7 @@ public class OriginDestinationServiceTest {
 	    	      .addHeader("Content-Type", "application/json"));
 
 		// Asserting response
-		StepVerifier.create(originDestinationService.getAirports()).assertNext(res -> {
+		StepVerifier.create(mockServiceRepository.getAirports()).assertNext(res -> {
 			assertNotNull(res);
 			assertEquals(2, res.size());
 			assertEquals("code1", res.get(0).getCode());
